@@ -1,16 +1,22 @@
+GIT
+  remote: https://github.com/puma/puma.git
+  revision: 8c9b3ebc7a86bdc5488704a0225b76409b9f555f
+  ref: 8c9b3ebc7a86bdc5488704a0225b76409b9f555f
+  specs:
+    puma (4.3.1)
+      nio4r (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
     nio4r (2.5.2)
-    puma (4.3.1)
-      nio4r (~> 2.0)
     rack (2.0.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  puma
+  puma!
   rack (~> 2.0.1)
 
 BUNDLED WITH
