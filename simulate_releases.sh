@@ -21,7 +21,8 @@ create_release_and_update_current_symlink ()
   echo "Creating release at ${release_path}"
   cp -R "${SOURCE_DIR}" "${release_path}"
   cd "${release_path}" || exit
-  bundle install --local --path .bundle
+  bundle config set path '.bundle'
+  bundle install --local
   ln -fsn "${release_path}" "${RELEASE_ROOT}/current"
 }
 
