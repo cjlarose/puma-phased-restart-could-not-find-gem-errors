@@ -26,6 +26,24 @@ create_release_and_update_current_symlink ()
   ln -fsn "${release_path}" "${RELEASE_ROOT}/current"
 }
 
+create_new_release_and_update_current_symlink ()
+{
+  local release_name=$(date '+%s%N')
+  local release_path="${RELEASE_ROOT}/${release_name}"
+  echo "Creating release at ${release_path}"
+  cp -R "${SOURCE_DIR}" "${release_path}"
+  cd "${release_path}" || exit
+
+  bundle config --delete frozen
+  sed -i '/activesupport/d' Gemfile
+  bundle config set path '.bundle'
+  bundle install
+  bundle config --global frozen 1
+
+  ln -fsn "${release_path}" "${RELEASE_ROOT}/current"
+}
+
+
 start_puma_master ()
 {
   echo "Starting puma master"
@@ -38,18 +56,6 @@ start_phased_restart ()
   echo "Starting phased restart"
   cd_to_current_release
   bundle exec pumactl -P "${PUMA_MASTER_PIDFILE}" phased-restart || exit
-}
-
-delete_old_releases ()
-{
-  echo "Deleting old releases"
-  local current_release=$(readlink -f "${RELEASE_ROOT}"/current)
-  while IFS= read -r -d '' release_dir; do
-    if [[ ${release_dir} != "${current_release}" ]] && ! [[ -h ${release_dir} ]]; then
-      echo "Removing ${release_dir}"
-      rm -r "${release_dir}"
-    fi
-  done < <(find "${RELEASE_ROOT}" -mindepth 1 -maxdepth 1 -print0)
 }
 
 test_connection ()
@@ -67,14 +73,11 @@ main ()
   start_puma_master
   test_connection
 
-  create_release_and_update_current_symlink
+  create_new_release_and_update_current_symlink
   start_phased_restart
-  delete_old_releases
   test_connection
 
-  create_release_and_update_current_symlink
-  start_phased_restart
-  test_connection
+  wait
 }
 
 main
