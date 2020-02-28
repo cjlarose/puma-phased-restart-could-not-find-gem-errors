@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:puma/puma.git
+  revision: 8c9b3ebc7a86bdc5488704a0225b76409b9f555f
+  ref: 8c9b3ebc7a86bdc5488704a0225b76409b9f555f
+  specs:
+    puma (4.3.1)
+      nio4r (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -12,8 +20,6 @@ GEM
       concurrent-ruby (~> 1.0)
     minitest (5.14.0)
     nio4r (2.5.2)
-    puma (4.3.1)
-      nio4r (~> 2.0)
     rack (2.0.9)
     thread_safe (0.3.6)
     tzinfo (1.2.6)
@@ -25,7 +31,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  puma
+  puma!
   rack (~> 2.0.1)
 
 BUNDLED WITH
