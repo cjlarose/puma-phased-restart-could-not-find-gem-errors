@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
-gem 'puma', git: 'https://github.com/puma/puma.git', ref: '8c9b3ebc7a86bdc5488704a0225b76409b9f555f'
+gem 'puma', '= 5.0.4'
 gem 'rack', '~> 2.0.1'
