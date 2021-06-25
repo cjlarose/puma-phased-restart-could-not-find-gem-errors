@@ -7,3 +7,4 @@ before_fork do
 
   PumaWorkerKiller.enable_rolling_restart # Default is every 6 hours
 end
+extra_runtime_dependencies ['puma_worker_killer', 'get_process_mem']
